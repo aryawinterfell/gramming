@@ -49,6 +49,9 @@ class GramsController < ApplicationController
 	def destroy
 		@gram = Gram.find_by_id(params[:id])
 		return render_not_found if @gram.blank?
+		if @gram.user != current_user
+			return render text: 'Forbidden', status: :forbidden
+		end
 		@gram.destroy
 		redirect_to root_path
 	end

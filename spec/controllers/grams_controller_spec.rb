@@ -2,6 +2,14 @@ require 'rails_helper'
 
 RSpec.describe GramsController, type: :controller do
 	describe "grams#destroy" do
+    it "shouldn't allow users who didn't create the gram to destroy it" do
+      p = FactoryGirl.create(:gram)
+      user = FactoryGirl.create(:user)
+      sign_in user
+      delete :destroy, id: p.id
+      expect(response).to have_http_status(:forbidden)
+   end
+
     it "shouldn't let unauthenticated users destroy a gram" do
       p = FactoryGirl.create(:gram)
       delete :destroy, id: p.id
