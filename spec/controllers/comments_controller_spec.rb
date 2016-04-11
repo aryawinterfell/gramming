@@ -6,7 +6,7 @@ RSpec.describe CommentsController, type: :controller do
  	 	p = FactoryGirl.create(:gram)
  	 	
  	 	u = FactoryGirl.create(:user)
- 	 	sign_in user
+ 	 	sign_in u
 
  	 	post :create, gram_id: p.id, comment: { message: 'awesome gram'}
  	 	expect(response).to redirect_to root_path
